@@ -215,3 +215,53 @@ function handle_upload(tombol, form, url, method){
         return false;
     });
 }
+
+function handle_delete(url){
+    $.confirm({
+        animationSpeed: 1000,
+        animation: 'zoom',
+        closeAnimation: 'scale',
+        animateFromElement: false,
+        columnClass: 'medium',
+        title: 'Konfirmasi Hapus',
+        content: 'Apa anda yakin ingin menghapus data ini ?',
+        // icon: 'fa fa-question',
+        theme: 'material',
+        closeIcon: true,
+        type: 'orange',
+        autoClose: 'Batal|5000',
+        buttons: {
+            Ya: {
+                btnClass: 'btn-red any-other-class',
+                action: function(){
+                    $.ajax({
+                        type:"DELETE",
+                        url: url,
+                        dataType: "json",
+                        success:function(response){
+                            if (response.alert == "success") {
+                                success_toastr(response.message);
+                                load_list(1);
+                            }else{
+                                error_toastr(response.message);
+                                load_list(1);
+                            }
+                        },
+                    });
+                }
+            },
+            Batal: {
+                btnClass: 'btn-blue', // multiple classes.
+                // ...
+            }
+        }
+    });
+}
+
+function load_input(url){
+    $.get(url, {}, function(result) {
+        $('#content_input').html(result);
+        main_content('content_input');
+        loaded();
+    }, "html");
+}

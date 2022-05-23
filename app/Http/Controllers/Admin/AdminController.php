@@ -7,8 +7,9 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
-use App\Models\User AS Admin;
+use App\Models\Operator;
 use App\Http\Controllers\Controller;
+use App\Models\Pengguna;
 
 class AdminController extends Controller
 {
@@ -16,8 +17,8 @@ class AdminController extends Controller
     {
         if ($request->ajax()) {
             $keywords = $request->keywords;
-            $collection = Admin::where('role','=','a')
-            ->where('name','like','%'.$keywords.'%')
+            $collection = Operator::
+            where('nama','like','%'.$keywords.'%')
             ->paginate(10);
             return view('pages.admin.admin.list', compact('collection'));
         }
@@ -25,33 +26,45 @@ class AdminController extends Controller
     }
     public function create()
     {
-        return view('pages.admin.admin.input', ['admin' => new Admin]);
+        return view('pages.admin.admin.input', ['admin' => new Operator]);
     }
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required',
-            'email' => 'required|unique:users|max:255',
-            'phone' => 'required|unique:users|min:9|max:15',
+            'nama' => 'required',
+            'email' => 'required|unique:operator_sekolah,email|max:255',
+            'jenis_kelamin' => 'required',
+            'username' => 'required|unique:pengguna,username',
+            'id_operator' => 'numeric|nullable|unique:operator_sekolah,id_operator|unique:pengguna,id_operator',
             'password' => 'required|min:8',
         ]);
 
         if ($validator->fails()) {
             $errors = $validator->errors();
-            if ($errors->has('name')) {
+            if ($errors->has('nama')) {
                 return response()->json([
                     'alert' => 'error',
-                    'message' => $errors->first('name'),
+                    'message' => $errors->first('nama'),
                 ]);
             }elseif ($errors->has('email')) {
                 return response()->json([
                     'alert' => 'error',
                     'message' => $errors->first('email'),
                 ]);
-            }elseif ($errors->has('phone')) {
+            }elseif ($errors->has('jenis_kelamin')) {
                 return response()->json([
                     'alert' => 'error',
-                    'message' => $errors->first('phone'),
+                    'message' => $errors->first('jenis_kelamin'),
+                ]);
+            }elseif ($errors->has('username')) {
+                return response()->json([
+                    'alert' => 'error',
+                    'message' => $errors->first('username'),
+                ]);
+            }elseif ($errors->has('id_operator')) {
+                return response()->json([
+                    'alert' => 'error',
+                    'message' => $errors->first('id_operator'),
                 ]);
             }elseif ($errors->has('password')) {
                 return response()->json([
@@ -60,65 +73,88 @@ class AdminController extends Controller
                 ]);
             }
         }
-        $user = new Admin;
-        $user->name = Str::title($request->name);
+        $user = new Operator;
+        $user->id_operator = $request->id_operator;
+        $user->nama = Str::title($request->nama);
         $user->email = $request->email;
-        $user->phone = $request->phone;
-        $user->password = Hash::make($request->password);
-        $user->role = 'a';
+        $user->jenis_kelamin = $request->jenis_kelamin;
         $user->save();
+
+        $account = new Pengguna;
+        $account->role = 'o';
+        $account->username = $request->username;
+        $account->password = Hash::make($request->password);
+        $account->created_at = now();
+        $account->updated_at = now();
+        $account->id_operator = $user->id_operator;
+        $account->save();
         return response()->json([
             'alert' => 'success',
-            'message' => 'Admin '. $request->name . ' tersimpan',
+            'message' => 'Admin '. $request->nama . ' tersimpan',
         ]);
     }
-    public function show(Admin $admin)
+    public function show(Operator $admin)
     {
         //
     }
-    public function edit(Admin $admin)
+    public function edit(Operator $admin)
     {
         return view('pages.admin.admin.input', compact('admin'));
     }
-    public function update(Request $request, Admin $admin)
+    public function update(Request $request, Operator $admin)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required',
-            'email' => 'required|max:255',
-            'phone' => 'required|min:9|max:15',
+            'nama' => 'required',
+            'email' => 'required|max:255|unique:operator_sekolah,email,'.$admin->id_operator.',id_operator',
+            'jenis_kelamin' => 'required',
+            'username' => 'required|unique:pengguna,username,'.$admin->id_operator.',id_operator',
+            'id_operator' => 'numeric|nullable|unique:operator_sekolah,id_operator|unique:pengguna,id_operator',
         ]);
+
         if ($validator->fails()) {
             $errors = $validator->errors();
-            if ($errors->has('name')) {
+            if ($errors->has('nama')) {
                 return response()->json([
                     'alert' => 'error',
-                    'message' => $errors->first('name'),
+                    'message' => $errors->first('nama'),
                 ]);
             }elseif ($errors->has('email')) {
                 return response()->json([
                     'alert' => 'error',
                     'message' => $errors->first('email'),
                 ]);
-            }else{
+            }elseif ($errors->has('jenis_kelamin')) {
                 return response()->json([
                     'alert' => 'error',
-                    'message' => $errors->first('phone'),
+                    'message' => $errors->first('jenis_kelamin'),
+                ]);
+            }elseif ($errors->has('username')) {
+                return response()->json([
+                    'alert' => 'error',
+                    'message' => $errors->first('username'),
+                ]);
+            }elseif ($errors->has('id_operator')) {
+                return response()->json([
+                    'alert' => 'error',
+                    'message' => $errors->first('id_operator'),
                 ]);
             }
         }
-        $admin->name = Str::title($request->name);
+        $admin->nama = Str::title($request->nama);
         $admin->email = $request->email;
-        $admin->phone = $request->phone;
-        if($request->password){
-            $admin->password = Hash::make($request->password);
-        }
+        $admin->jenis_kelamin = $request->jenis_kelamin;
         $admin->update();
+
+        $account = Pengguna::where('id_operator', $admin->id_operator)->first();
+        $account->username = $request->username;
+        $account->updated_at = now();
+        $account->save();
         return response()->json([
             'alert' => 'success',
-            'message' => 'Admin '. $request->name . ' terupdate',
+            'message' => 'Admin '. $request->nama . ' diubah',
         ]);
     }
-    public function destroy(Admin $admin)
+    public function destroy(Operator $admin)
     {
         Storage::delete($admin->photo);
         $admin->delete();

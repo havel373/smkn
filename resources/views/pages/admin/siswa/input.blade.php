@@ -12,77 +12,61 @@
                         <div class="col-sm-12 col-md-6">
                             <div class="mb-10">
                                 <label for="nim" class="required form-label">NISN</label>
-                                <input type="text" name="nisn" id="nisn" class="form-control form-control-solid" placeholder="NISN" value="{{$siswa->nisn}}" />
+                                <input type="text" name="nisn" id="nisn" class="form-control form-control-solid" placeholder="NISN" value="{{$siswa->nisn}}" {{$siswa->nisn ? 'readonly' : ''}} />
                             </div>
                         </div>
                         <div class="col-sm-12 col-md-6">
                             <div class="mb-10">
-                                <label for="name" class="required form-label">Nama</label>
-                                <input type="text" name="name" id="nama" class="form-control form-control-solid" placeholder="Nama" value="{{$siswa->name}}" />
-                            </div>
-                        </div>
-                        <div class="col-sm-12 col-md-6">
-                            <div class="mb-10">
-                                <label for="phone" class="required form-label">No HP</label>
-                                <input type="text" name="phone" id="phone" class="form-control form-control-solid" placeholder="No HP" value="{{$siswa->phone}}"/>
+                                <label for="nama" class="required form-label">Nama</label>
+                                <input type="text" name="nama" id="nama" class="form-control form-control-solid" placeholder="Nama" value="{{$siswa->nama}}" />
                             </div>
                         </div>
                         <div class="col-sm-12 col-md-6">
                             <div class="mb-10">
                                 <label for="email" class="required form-label">Email</label>
-                                <input type="email" id="email" name="email" class="form-control form-control-solid" placeholder="Email" value="{{$siswa->email}}"/>
+                                <input type="email" name="email" id="email" class="form-control form-control-solid" placeholder="Email" value="{{$siswa->email}}"/>
                             </div>
                         </div>
                         <div class="col-sm-12 col-md-6">
                             <div class="mb-10">
-                                <label for="date_birth" class="required form-label">Tanggal Lahir</label>
-                                <input type="text" id="date_birth" name="date_birth" class="form-control form-control-solid" placeholder="Tanggal Lahir" value="{{$siswa->date_birth}}"/>
+                                <label for="tgl_lahir" class="required form-label">Tanggal Lahir</label>
+                                <input type="text" id="tgl_lahir" name="tgl_lahir" class="form-control form-control-solid" placeholder="Tanggal Lahir" value="{{$siswa->tgl_lahir}}"/>
                             </div>
                         </div>
                         <div class="col-sm-12 col-md-6">
                             <div class="mb-10">
-                                <label for="place_birth" class="required form-label">Tempat Lahir</label>
-                                <input type="text" name="place_birth" class="form-control form-control-solid" placeholder="Tempat Lahir" value="{{$siswa->place_birth}}"/>
-                            </div>
-                        </div>
-                        <div class="col-sm-12 col-md-6">
-                            <div class="mb-10">
-                                <label for="religion" class="required form-label">Agama</label>
-                                <select class="form-select" name="religion">
+                                <label for="agama" class="required form-label">Agama</label>
+                                <select class="form-select" name="agama">
                                     <option SELECTED DISABLED>Pilih Agama</option>
-                                    <option value="islam" {{$siswa->religion == "islam" ? 'selected' : ''}}>Islam</option>
-                                    <option value="katolik" {{$siswa->religion == "katolik" ? 'selected' : ''}}>Katolik</option>
-                                    <option value="protestan" {{$siswa->religion == "protestan" ? 'selected' : ''}}>Protestan</option>
-                                    <option value="buddha" {{$siswa->religion == "buddha" ? 'selected' : ''}}>Buddha</option>
-                                    <option value="hindu" {{$siswa->religion == "hindu" ? 'selected' : ''}}>Hindu</option>
+                                    <option value="islam" {{$siswa->agama == "ISLAM" ? 'selected' : ''}}>Islam</option>
+                                    <option value="katolik" {{$siswa->agama == "KATOLIK" ? 'selected' : ''}}>Katolik</option>
+                                    <option value="kristen" {{$siswa->agama == "KRISTEN" ? 'selected' : ''}}>Kristen Protestan</option>
+                                    <option value="buddha" {{$siswa->agama == "BUDDHA" ? 'selected' : ''}}>Buddha</option>
+                                    <option value="hindu" {{$siswa->agama == "HINDU" ? 'selected' : ''}}>Hindu</option>
+                                    <option value="konghucu" {{$siswa->agama == "KONGHUCU" ? 'selected' : ''}}>Konghucu</option>
                                 </select>
                             </div>
                         </div>
                         <div class="col-sm-12 col-md-6">
                             <div class="mb-10">
-                                <label for="address" class="required form-label">Alamat</label>
-                                <textarea class="form-control" name="address">{{$siswa->address}}</textarea>
+                                <label for="alamat" class="required form-label">Alamat</label>
+                                <textarea class="form-control" name="alamat">{{$siswa->alamat}}</textarea>
                             </div>
                         </div>
                         <div class="col-sm-12 col-md-6">
                             <div class="mb-10">
-                                <label for="email" class="required form-label">Jenis Kelamin</label>
-                                <select name="gender" class="form-select">
-                                    <option SELECTED DISABLED>Pilih Jenis Kelamin</option>
-                                    <option value="l" {{$siswa->gender == "l" ? 'selected' : ''}}>Laki-Laki</option>
-                                    <option value="p" {{$siswa->gender == "p" ? 'selected' : ''}}>Perempuan</option>
+                                <label for="jenis_kelamin" class="required form-label">Jenis Kelamin</label>
+                                <select name="jenis_kelamin" class="form-select">
+                                    <option value="">Pilih Jenis Kelamin</option>
+                                    <option value="l" {{$siswa->jenis_kelamin == "l" ? 'selected' : ''}}>Laki-Laki</option>
+                                    <option value="p" {{$siswa->jenis_kelamin == "p" ? 'selected' : ''}}>Perempuan</option>
                                 </select>
                             </div>
                         </div>
                         <div class="col-sm-12 col-md-6">
                             <div class="mb-10">
-                                <label for="kelas" class="required form-label">Kelas</label>
-                                <select data-control="select2" data-placeholder="Pilih Kelas" name="kelas" class="form-select form-select-solid">
-                                    <option SELECTED DISABLED>Pilih Kelas</option>
-                                    @foreach ($kelas as $item)
-                                        <option value="{{$item->id}}" {{$siswa->class_id == $item->id ? 'selected' : ''}}>{{$item->kode_kelas}} | {{$item->tahun}}</option>
-                                    @endforeach
-                                </select>
+                                <label for="username" class="required form-label">Username</label>
+                                <input type="text" name="username" id="username" class="form-control form-control-solid" placeholder="Username" value="{{$siswa->pengguna ? $siswa->pengguna->username : ''}}"/>
                             </div>
                         </div>
                         <div class="col-sm-12 col-md-6">
@@ -91,9 +75,21 @@
                                 <input type="password" name="password" class="form-control form-control-solid" placeholder="Password"/>
                             </div>
                         </div>
+                        <div class="col-sm-12 col-md-6">
+                            <div class="mb-10">
+                                <label for="kelas" class="required form-label">Kelas</label>
+                                <select name="kelas" class="form-select">
+                                    <option value="">Pilih Kelas</option>
+                                    @foreach($kelas as $kl)
+                                        <option value="{{$kl->id}}" {{$kl->id == $siswa->kelas_id ? 'selected' : ''}}>{{$kl->kode_kelas}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
                         <div class="min-w-150px text-end">
-                            @if ($siswa->id)
-                            <button id="tombol_simpan" onclick="handle_upload('#tombol_simpan','#form_input','{{route('admin.siswa.update',$siswa->id)}}','PATCH','Simpan');" class="btn btn-primary">Simpan</button>
+                            <button type="button" onclick="load_list(1);" class="btn btn-light me-5">Kembali</button>
+                            @if ($siswa->nisn)
+                            <button id="tombol_simpan" onclick="handle_upload('#tombol_simpan','#form_input','{{route('admin.siswa.update',$siswa->nisn)}}','PATCH','Simpan');" class="btn btn-primary">Simpan</button>
                             @else
                             <button id="tombol_simpan" onclick="handle_upload('#tombol_simpan','#form_input','{{route('admin.siswa.store')}}','POST','Simpan');" class="btn btn-primary">Simpan</button>
                             @endif
@@ -110,9 +106,8 @@
     <!--end::Container-->
 </div>
 <script type="text/javascript">
-    obj_datepicker('#date_birth');
-    number_only('nim');
+    obj_datepicker('#tgl_lahir');
+    number_only('nisn');
     text_only('nama');
-    number_only('phone');
     format_email('email');
 </script>

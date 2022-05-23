@@ -12,19 +12,13 @@
                         <div class="col-sm-12 col-md-6">
                             <div class="mb-10">
                                 <label for="nip" class="required form-label">NIP</label>
-                                <input type="text" name="nip" id="nip" class="form-control form-control-solid" placeholder="NIP" value="{{$guru->nip}}" />
+                                <input type="text" name="nip" id="nip" class="form-control form-control-solid" placeholder="NIP" value="{{$guru->nip}}" {{$guru->nip ? 'readonly' : ''}} />
                             </div>
                         </div>
                         <div class="col-sm-12 col-md-6">
                             <div class="mb-10">
-                                <label for="name" class="required form-label">Nama</label>
-                                <input type="text" name="name" id="nama" class="form-control form-control-solid" placeholder="Nama" value="{{$guru->name}}" />
-                            </div>
-                        </div>
-                        <div class="col-sm-12 col-md-6">
-                            <div class="mb-10">
-                                <label for="phone" class="required form-label">No HP</label>
-                                <input type="text" name="phone" id="phone" class="form-control form-control-solid" placeholder="No HP" value="{{$guru->phone}}"/>
+                                <label for="nama" class="required form-label">Nama</label>
+                                <input type="text" name="nama" id="nama" class="form-control form-control-solid" placeholder="Nama" value="{{$guru->nama}}" />
                             </div>
                         </div>
                         <div class="col-sm-12 col-md-6">
@@ -35,43 +29,44 @@
                         </div>
                         <div class="col-sm-12 col-md-6">
                             <div class="mb-10">
-                                <label for="date_birth" class="required form-label">Tanggal Lahir</label>
-                                <input type="text" id="date_birth" name="date_birth" class="form-control form-control-solid" placeholder="Tanggal Lahir" value="{{$guru->date_birth}}"/>
+                                <label for="tgl_lahir" class="required form-label">Tanggal Lahir</label>
+                                <input type="text" id="tgl_lahir" name="tgl_lahir" class="form-control form-control-solid" placeholder="Tanggal Lahir" value="{{$guru->tgl_lahir}}"/>
                             </div>
                         </div>
                         <div class="col-sm-12 col-md-6">
                             <div class="mb-10">
-                                <label for="place_birth" class="required form-label">Tempat Lahir</label>
-                                <input type="text" name="place_birth" class="form-control form-control-solid" placeholder="Tempat Lahir" value="{{$guru->place_birth}}"/>
-                            </div>
-                        </div>
-                        <div class="col-sm-12 col-md-6">
-                            <div class="mb-10">
-                                <label for="religion" class="required form-label">Agama</label>
-                                <select class="form-select" name="religion">
+                                <label for="agama" class="required form-label">Agama</label>
+                                <select class="form-select" name="agama">
                                     <option SELECTED DISABLED>Pilih Agama</option>
-                                    <option value="islam" {{$guru->religion == "islam" ? 'selected' : ''}}>Islam</option>
-                                    <option value="katolik" {{$guru->religion == "katolik" ? 'selected' : ''}}>Katolik</option>
-                                    <option value="protestan" {{$guru->religion == "protestan" ? 'selected' : ''}}>Protestan</option>
-                                    <option value="buddha" {{$guru->religion == "buddha" ? 'selected' : ''}}>Buddha</option>
-                                    <option value="hindu" {{$guru->religion == "hindu" ? 'selected' : ''}}>Hindu</option>
+                                    <option value="islam" {{$guru->agama == "ISLAM" ? 'selected' : ''}}>Islam</option>
+                                    <option value="katolik" {{$guru->agama == "KATOLIK" ? 'selected' : ''}}>Katolik</option>
+                                    <option value="kristen" {{$guru->agama == "KRISTEN" ? 'selected' : ''}}>Kristen Protestan</option>
+                                    <option value="buddha" {{$guru->agama == "BUDDHA" ? 'selected' : ''}}>Buddha</option>
+                                    <option value="hindu" {{$guru->agama == "HINDU" ? 'selected' : ''}}>Hindu</option>
+                                    <option value="konghucu" {{$guru->agama == "KONGHUCU" ? 'selected' : ''}}>Konghucu</option>
                                 </select>
                             </div>
                         </div>
                         <div class="col-sm-12 col-md-6">
                             <div class="mb-10">
-                                <label for="address" class="required form-label">Alamat</label>
-                                <textarea class="form-control" name="address">{{$guru->address}}</textarea>
+                                <label for="alamat" class="required form-label">Alamat</label>
+                                <textarea class="form-control" name="alamat">{{$guru->alamat}}</textarea>
                             </div>
                         </div>
                         <div class="col-sm-12 col-md-6">
                             <div class="mb-10">
                                 <label for="email" class="required form-label">Jenis Kelamin</label>
-                                <select name="gender" class="form-select">
-                                    <option SELECTED DISABLED>Pilih Jenis Kelamin</option>
-                                    <option value="l" {{$guru->gender == "l" ? 'selected' : ''}}>Laki-Laki</option>
-                                    <option value="p" {{$guru->gender == "p" ? 'selected' : ''}}>Perempuan</option>
+                                <select name="jenis_kelamin" class="form-select">
+                                    <option value="">Pilih Jenis Kelamin</option>
+                                    <option value="l" {{$guru->jenis_kelamin == "l" ? 'selected' : ''}}>Laki-Laki</option>
+                                    <option value="p" {{$guru->jenis_kelamin == "p" ? 'selected' : ''}}>Perempuan</option>
                                 </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                            <div class="mb-10">
+                                <label for="username" class="required form-label">Username</label>
+                                <input type="text" name="username" id="username" class="form-control form-control-solid" placeholder="Username" value="{{$guru->pengguna ? $guru->pengguna->username : ''}}"/>
                             </div>
                         </div>
                         <div class="col-sm-12 col-md-6">
@@ -82,8 +77,8 @@
                         </div>
                         <div class="min-w-150px text-end">
                             <button type="button" onclick="load_list(1);" class="btn btn-light me-5">Kembali</button>
-                            @if ($guru->id)
-                            <button id="tombol_simpan" onclick="handle_upload('#tombol_simpan','#form_input','{{route('admin.guru.update',$guru->id)}}','PATCH','Simpan');" class="btn btn-primary">Simpan</button>
+                            @if ($guru->nip)
+                            <button id="tombol_simpan" onclick="handle_upload('#tombol_simpan','#form_input','{{route('admin.guru.update',$guru->nip)}}','PATCH','Simpan');" class="btn btn-primary">Simpan</button>
                             @else
                             <button id="tombol_simpan" onclick="handle_upload('#tombol_simpan','#form_input','{{route('admin.guru.store')}}','POST','Simpan');" class="btn btn-primary">Simpan</button>
                             @endif
@@ -100,9 +95,8 @@
     <!--end::Container-->
 </div>
 <script type="text/javascript">
-    obj_datepicker('#date_birth');
-    number_only('nidn');
+    obj_datepicker('#tgl_lahir');
+    number_only('nip');
     text_only('nama');
-    number_only('phone');
     format_email('email');
 </script>

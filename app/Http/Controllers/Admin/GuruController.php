@@ -8,8 +8,9 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
-use App\Models\User AS Guru;
+use App\Models\Guru;
 use App\Http\Controllers\Controller;
+use App\Models\Pengguna;
 
 class GuruController extends Controller
 {
@@ -17,8 +18,8 @@ class GuruController extends Controller
     {
         if ($request->ajax()) {
             $keywords = $request->keywords;
-            $collection = Guru::where('role','=','g')
-            ->where('name','like','%'.$keywords.'%')
+            $collection = Guru::
+            where('nama','like','%'.$keywords.'%')
             ->paginate(10);
             return view('pages.admin.guru.list', compact('collection'));
         }
@@ -31,64 +32,58 @@ class GuruController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required',
-            'nip' => 'required',
-            'date_birth' => 'required',
-            'place_birth' => 'required',
-            'address' => 'required',
-            'religion' => 'required',
-            'gender' => 'required',
-            'email' => 'required|unique:users|max:255',
-            'phone' => 'required|unique:users|min:9|max:15',
+            'nip' => 'numeric|nullable|unique:guru,nip|unique:pengguna,nip',
+            'nama' => 'required',
+            'email' => 'required|unique:guru,email|max:255',
+            'tgl_lahir' => 'required',
+            'agama' => 'required',
+            'alamat' => 'required',
+            'jenis_kelamin' => 'required',
+            'username' => 'required|unique:pengguna,username',
             'password' => 'required|min:8',
         ]);
 
         if ($validator->fails()) {
             $errors = $validator->errors();
-            if ($errors->has('name')) {
+            if ($errors->has('nip')) {
                 return response()->json([
                     'alert' => 'error',
-                    'message' => $errors->first('name'),
+                    'message' => $errors->first('nip'),
+                ]);
+            }elseif ($errors->has('nama')) {
+                return response()->json([
+                    'alert' => 'error',
+                    'message' => $errors->first('nama'),
                 ]);
             }elseif ($errors->has('email')) {
                 return response()->json([
                     'alert' => 'error',
                     'message' => $errors->first('email'),
                 ]);
-            }elseif ($errors->has('phone')) {
+            }elseif ($errors->has('tgl_lahir')) {
                 return response()->json([
                     'alert' => 'error',
-                    'message' => $errors->first('phone'),
+                    'message' => $errors->first('tgl_lahir'),
                 ]);
-            }elseif ($errors->has('nip')) {
+            }elseif ($errors->has('agama')) {
                 return response()->json([
                     'alert' => 'error',
-                    'message' => $errors->first('nip'),
+                    'message' => $errors->first('agama'),
                 ]);
-            }elseif ($errors->has('date_birth')) {
+            }elseif ($errors->has('alamat')) {
                 return response()->json([
                     'alert' => 'error',
-                    'message' => $errors->first('date_birth'),
+                    'message' => $errors->first('alamat'),
                 ]);
-            }elseif ($errors->has('place_birth')) {
+            }elseif ($errors->has('jenis_kelamin')) {
                 return response()->json([
                     'alert' => 'error',
-                    'message' => $errors->first('place_birth'),
+                    'message' => $errors->first('jenis_kelamin'),
                 ]);
-            }elseif ($errors->has('address')) {
+            }elseif ($errors->has('username')) {
                 return response()->json([
                     'alert' => 'error',
-                    'message' => $errors->first('address'),
-                ]);
-            }elseif ($errors->has('religion')) {
-                return response()->json([
-                    'alert' => 'error',
-                    'message' => $errors->first('religion'),
-                ]);
-            }elseif ($errors->has('gender')) {
-                return response()->json([
-                    'alert' => 'error',
-                    'message' => $errors->first('gender'),
+                    'message' => $errors->first('username'),
                 ]);
             }elseif ($errors->has('password')) {
                 return response()->json([
@@ -99,20 +94,27 @@ class GuruController extends Controller
         }
         $user = new Guru;
         $user->nip = $request->nip;
-        $user->name = Str::title($request->name);
+        $user->nama = Str::title($request->nama);
         $user->email = $request->email;
-        $user->phone = $request->phone;
-        $user->password = Hash::make($request->password);
-        $user->role = 'g';
-        $user->date_birth = $request->date_birth;
-        $user->place_birth = $request->place_birth;
-        $user->address = $request->address;
-        $user->religion = $request->religion;
-        $user->gender = $request->gender;
+        $user->tgl_lahir = $request->tgl_lahir;
+        $user->agama = Str::upper($request->agama);
+        $user->alamat = $request->alamat;
+        $user->jenis_kelamin = $request->jenis_kelamin;
+        $user->created_at = now();
+        $user->updated_at = now();
         $user->save();
+
+        $account = new Pengguna;
+        $account->role = 'g';
+        $account->nip = $user->nip;
+        $account->username = $request->username;
+        $account->password = Hash::make($request->password);
+        $account->created_at = now();
+        $account->updated_at = now();
+        $account->save();
         return response()->json([
             'alert' => 'success',
-            'message' => 'Guru '. $request->name . ' tersimpan',
+            'message' => 'Guru '. $request->nama . ' tersimpan',
         ]);
     }
     public function show(Guru $guru)
@@ -126,92 +128,95 @@ class GuruController extends Controller
     public function update(Request $request, Guru $guru)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required',
-            'nip' => 'required',
-            'date_birth' => 'required',
-            'place_birth' => 'required',
-            'address' => 'required',
-            'religion' => 'required',
-            'gender' => 'required',
-            'email' => 'required|max:255',
-            'phone' => 'required|min:9|max:15',
+            'nip' => 'numeric|nullable|unique:guru,nip,'.$guru->nip.',nip','|unique:pengguna,nip,'.$guru->nip.',nip',
+            'nama' => 'required',
+            'email' => 'required|max:255|unique:guru,email,'.$guru->nip.',nip',
+            'tgl_lahir' => 'required',
+            'agama' => 'required',
+            'alamat' => 'required',
+            'jenis_kelamin' => 'required',
+            'username' => 'required|unique:pengguna,username,'.$guru->nip.',nip',
+            'password' => 'nullable|min:8',
         ]);
+
         if ($validator->fails()) {
             $errors = $validator->errors();
-            if ($errors->has('name')) {
+            if ($errors->has('nip')) {
                 return response()->json([
                     'alert' => 'error',
-                    'message' => $errors->first('name'),
+                    'message' => $errors->first('nip'),
+                ]);
+            }elseif ($errors->has('nama')) {
+                return response()->json([
+                    'alert' => 'error',
+                    'message' => $errors->first('nama'),
                 ]);
             }elseif ($errors->has('email')) {
                 return response()->json([
                     'alert' => 'error',
                     'message' => $errors->first('email'),
                 ]);
-            }elseif ($errors->has('nip')) {
+            }elseif ($errors->has('tgl_lahir')) {
                 return response()->json([
                     'alert' => 'error',
-                    'message' => $errors->first('nip'),
+                    'message' => $errors->first('tgl_lahir'),
                 ]);
-            }elseif ($errors->has('date_birth')) {
+            }elseif ($errors->has('agama')) {
                 return response()->json([
                     'alert' => 'error',
-                    'message' => $errors->first('date_birth'),
+                    'message' => $errors->first('agama'),
                 ]);
-            }elseif ($errors->has('place_birth')) {
+            }elseif ($errors->has('alamat')) {
                 return response()->json([
                     'alert' => 'error',
-                    'message' => $errors->first('place_birth'),
+                    'message' => $errors->first('alamat'),
                 ]);
-            }elseif ($errors->has('address')) {
+            }elseif ($errors->has('jenis_kelamin')) {
                 return response()->json([
                     'alert' => 'error',
-                    'message' => $errors->first('address'),
+                    'message' => $errors->first('jenis_kelamin'),
                 ]);
-            }elseif ($errors->has('religion')) {
+            }elseif ($errors->has('username')) {
                 return response()->json([
                     'alert' => 'error',
-                    'message' => $errors->first('religion'),
+                    'message' => $errors->first('username'),
                 ]);
-            }elseif ($errors->has('gender')) {
+            }elseif ($errors->has('password')) {
                 return response()->json([
                     'alert' => 'error',
-                    'message' => $errors->first('gender'),
-                ]);
-            }else{
-                return response()->json([
-                    'alert' => 'error',
-                    'message' => $errors->first('phone'),
+                    'message' => $errors->first('password'),
                 ]);
             }
         }
-        if($guru->phone != $request->phone){
-            $guru->phone = $request->phone;
-        }
         $guru->nip = $request->nip;
-        $guru->name = Str::title($request->name);
+        $guru->nama = Str::title($request->nama);
         $guru->email = $request->email;
-        $guru->date_birth = $request->date_birth;
-        $guru->place_birth = $request->place_birth;
-        $guru->address = $request->address;
-        $guru->religion = $request->religion;
-        $guru->gender = $request->gender;
-        if($request->password){
-            $guru->password = Hash::make($request->password);
-        }
+        $guru->tgl_lahir = $request->tgl_lahir;
+        $guru->agama = Str::upper($request->agama);
+        $guru->alamat = $request->alamat;
+        $guru->jenis_kelamin = $request->jenis_kelamin;
+        $guru->updated_at = now();
         $guru->update();
+
+        $account = Pengguna::where('nip', $guru->nip)->first();
+        $account->nip = $guru->nip;
+        $account->username = $request->username;
+        if($request->password){
+            $account->password = Hash::make($request->password);
+        }
+        $account->updated_at = now();
+        $account->update();
         return response()->json([
             'alert' => 'success',
-            'message' => 'Guru '. $request->name . ' terupdate',
+            'message' => 'Guru '. $request->nama . ' diubah',
         ]);
     }
     public function destroy(Guru $guru)
     {
-        Storage::delete($guru->photo);
         $guru->delete();
         return response()->json([
             'alert' => 'success',
-            'message' => 'Guru '. $guru->name . ' terhapus',
+            'message' => 'Guru '. $guru->nama . ' terhapus',
         ]);
     }
 }

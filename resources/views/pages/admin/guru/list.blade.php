@@ -3,19 +3,19 @@
         <tr class="fw-bold fs-6 text-gray-800 border-bottom border-gray-200">
             <th>Nama</th>
             <th>Email</th>
-            <th>No HP</th>
+            <th>Alamat</th>
             <th>Aksi</th>
         </tr>
     </thead>
     <tbody>
         @foreach ($collection as $item)
         <tr>
-            <td>{{$item->name}}</td>
+            <td>{{$item->nama}}</td>
             <td>{{$item->email}}</td>
-            <td>{{$item->phone}}</td>
+            <td>{{$item->alamat}}</td>
             <td>
-                <a href="javascript:;" onclick="load_input('{{route('admin.guru.edit',$item->id)}}');" class="btn btn-icon btn-warning"><i class="las la-edit fs-2"></i></a>
-                <a href="javascript:;" onclick="handle_delete('{{route('admin.guru.destroy',$item->id)}}');" class="btn btn-icon btn-danger"><i class="las la-trash fs-2"></i></a>
+                <a href="javascript:;" onclick="load_input('{{route('admin.guru.edit',$item->nip)}}');" class="btn btn-icon btn-warning"><i class="las la-edit fs-2"></i></a>
+                <a href="javascript:;" onclick="handle_delete('{{route('admin.guru.destroy',$item->nip)}}');" class="btn btn-icon btn-danger"><i class="las la-trash fs-2"></i></a>
             </td>
         </tr>
         @endforeach

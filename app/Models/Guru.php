@@ -10,4 +10,8 @@ class Guru extends Model
     use HasFactory;
     public $table = "guru";
     protected $primaryKey ="nip";
+
+    public function pengguna(){
+        return $this->belongsTo(Pengguna::class, 'nip', 'nip');
+    }
 }

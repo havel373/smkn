@@ -4,19 +4,24 @@
             <th>Nama</th>
             <th>Email</th>
             <th>No HP</th>
+            <th>Username</th>
+            <th>Id Operator</th>
             <th>Aksi</th>
         </tr>
     </thead>
     <tbody>
+        
         @foreach ($collection as $item)
         <tr>
-            <td>{{$item->name}}</td>
+            <td>{{$item->nama}}</td>
             <td>{{$item->email}}</td>
-            <td>{{$item->phone}}</td>
+            <td>{{$item->jenis_kelamin == 'l' ? 'Laki-Laki' : 'Perempuan' }}</td>
+            <td>{{$item->pengguna->username}}</td>
+            <td>{{$item->id_operator}}</td>
             <td>
-                <a href="javascript:;" onclick="load_input('{{route('admin.admin.edit',$item->id)}}');" class="btn btn-icon btn-warning"><i class="las la-edit fs-2"></i></a>
-                @if(Auth::guard('admin')->user()->id != $item->id)
-                <a href="javascript:;" onclick="handle_delete('{{route('admin.admin.destroy',$item->id)}}');" class="btn btn-icon btn-danger"><i class="las la-trash fs-2"></i></a>
+                <a href="javascript:;" onclick="load_input('{{route('admin.admin.edit',$item->id_operator)}}');" class="btn btn-icon btn-warning"><i class="las la-edit fs-2"></i></a>
+                @if(Auth::user()->id != $item->id_operator)
+                <a href="javascript:;" onclick="handle_delete('{{route('admin.admin.destroy',$item->id_operator)}}');" class="btn btn-icon btn-danger"><i class="las la-trash fs-2"></i></a>
                 @endif
             </td>
         </tr>

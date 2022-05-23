@@ -10,4 +10,8 @@ class Operator extends Model
     use HasFactory;
     public $table = "operator_sekolah";
     protected $primaryKey = "id_operator";
+
+    public function pengguna(){
+        return $this->belongsTo(Pengguna::class, 'id_operator', 'id_operator');
+    }
 }
