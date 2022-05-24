@@ -6,15 +6,15 @@
             </div>
             <div class="aside-user-info flex-row-fluid flex-wrap ms-5">
                 <div class="d-flex">
-                    @if(Str::title(Auth::user()->role))
+                    @if(Auth::user()->role=='o')
                         @php $role = 'operator'; @endphp
-                    @elseif(Str::title(Auth::user()->role))
+                    @elseif(Auth::user()->role=='g')
                         @php $role = 'guru'; @endphp
                     @else
                         @php $role = 'siswa'; @endphp
                     @endif
                     <div class="flex-grow-1 me-2">
-                        <a href="#" class="text-white text-hover-primary fs-6 fw-bold">{{Auth::user()->name}}</a>
+                        <a href="#" class="text-white text-hover-primary fs-6 fw-bold">{{Auth::user()->username}}</a>
                         <span class="text-gray-600 fw-bold d-block fs-8 mb-1">{{$role}}</span>
                         <div class="d-flex align-items-center text-success fs-9">
                         <span class="bullet bullet-dot bg-success me-1"></span>online</div>

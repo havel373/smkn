@@ -12,7 +12,7 @@
         <tr>
             <td>{{$item->nama_mapel}}</td>
             <td>{{$item->deskripsi}}</td>
-            <td>{{$item->guru->name}}</td>
+            <td>{{$item->username}}</td>
             <td>
                 <a href="javascript:;" onclick="load_input('{{route('admin.pelajaran.edit',$item->id)}}');" class="btn btn-icon btn-warning"><i class="las la-edit fs-2"></i></a>
                 <a href="javascript:;" onclick="handle_delete('{{route('admin.pelajaran.destroy',$item->id)}}');" class="btn btn-icon btn-danger"><i class="las la-trash fs-2"></i></a>

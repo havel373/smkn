@@ -16,7 +16,7 @@
             <td>{{$item->nama}}</td>
             <td>{{$item->email}}</td>
             <td>{{$item->jenis_kelamin == 'l' ? 'Laki-Laki' : 'Perempuan' }}</td>
-            <td>{{$item->pengguna->username}}</td>
+            <td>{{$item->Username}}</td>
             <td>{{$item->id_operator}}</td>
             <td>
                 <a href="javascript:;" onclick="load_input('{{route('admin.admin.edit',$item->id_operator)}}');" class="btn btn-icon btn-warning"><i class="las la-edit fs-2"></i></a>

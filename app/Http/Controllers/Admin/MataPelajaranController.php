@@ -5,7 +5,8 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Models\Room;
 use App\Models\MataPelajaran;
-use App\Models\User;
+use App\Models\Pengguna;
+use App\Models\Guru;
 use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
@@ -24,7 +25,7 @@ class MataPelajaranController extends Controller
     }
     public function create()
     {
-        $guru = User::where('role','g')->get();
+        $guru = Pengguna::where('role','g')->get();
         return view('pages.admin.pelajaran.input', ['pelajaran' => new MataPelajaran, 'guru' => $guru]);
     }
     public function store(Request $request)
@@ -70,7 +71,7 @@ class MataPelajaranController extends Controller
     }
     public function edit(MataPelajaran $pelajaran)
     {
-        $guru = User::where('role','g')->get();
+        $guru =  Pengguna::where('role','g')->get();
         return view('pages.admin.pelajaran.input', compact('guru','pelajaran'));
     }
     public function update(Request $request, MataPelajaran $pelajaran)

@@ -28,7 +28,7 @@
                                             <select data-control="select2" data-placeholder="Pilih Guru" name="guru" class="form-select form-select-solid">
                                                 <option SELECTED DISABLED>Pilih Guru</option>
                                                 @foreach ($guru as $item)
-                                                    <option value="{{$item->id}}" {{$pelajaran->guru_id == $item->id ? 'selected' : ''}}>{{$item->name}}</option>
+                                                    <option value="{{$item->id}}" {{$pelajaran->guru_id == $item->id ? 'selected' : ''}}>{{$item->nama}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
