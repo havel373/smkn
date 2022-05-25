@@ -3,7 +3,7 @@
         <div class="w-lg-500px p-10 p-lg-15 mx-auto">
             <form class="form w-100" novalidate="novalidate" id="form_login">
                 <div class="text-center mb-10">
-                    <h1 class="text-dark mb-3">Masuk ke SMK NEGERI 3 Balige</h1>
+                    <h1 class="text-dark mb-3">E-learning SMK NEGERI 3 Balige</h1>
                 </div>
                 <div class="fv-row mb-10">
                     <label class="form-label fs-6 fw-bolder text-dark">Username</label>
