@@ -21,13 +21,12 @@ class TugasController extends Controller
     {
         if ($request->ajax()) {
             $keywords = $request->keywords;
-            $kelas_id = Pengguna::join('siswa','pengguna.nisn','=','siswa.nisn')->select('siswa.kelas_id')->where('pengguna.nisn',Auth::user()->nisn)->first();
             $collection = Tugas::join('mata_pelajaran','matpel_id','=','mata_pelajaran.id')
             ->join('siswa','mata_pelajaran.kelas_id','=','siswa.kelas_id')
             ->join('pengguna','siswa.nisn','=','pengguna.nisn')
             ->select('tugas.id','mata_pelajaran.nama_mapel','tugas.end_at','tugas.judul_tugas','tugas.start_at','tugas.berkas_tugas')
             ->where('mata_pelajaran.nama_mapel','like','%'.$keywords.'%')
-            ->where('mata_pelajaran.kelas_id',$kelas_id->kelas_id)
+            ->where('siswa.nisn',Auth::user()->nisn)
             ->paginate(10);
             return view('pages.siswa.tugas.list', compact('collection'));
         }
