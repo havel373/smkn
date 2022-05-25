@@ -18,9 +18,12 @@ class NilaiController extends Controller
     {
         if ($request->ajax()) {
             $keywords = $request->keywords;
-            $collection = Pengumpulan::
-            where('nisn',Auth::user()->siswa->nisn)
-            ->where('nisn','like','%'.$keywords.'%')
+            $collection = Pengumpulan::join('tugas','tugas_id','=','tugas.id')
+            ->join('mata_pelajaran','matpel_id','=','mata_pelajaran.id')
+            ->join('pengguna','mata_pelajaran.guru_id','=','pengguna.nip')
+            ->join('siswa','pengumpulan_tugas.nisn','=','siswa.nisn')
+            ->where('mata_pelajaran.nama_mapel','like','%'.$keywords.'%')
+            ->where('pengumpulan_tugas.nisn',Auth::user()->nisn)
             ->paginate(10);
             return view('pages.siswa.nilai.list', compact('collection'));
         }

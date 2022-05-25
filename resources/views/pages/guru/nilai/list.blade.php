@@ -15,7 +15,7 @@
         <tr>
             <td>{{$item->tugas->matpel->nama_mapel}}</td>
             <td>{{$item->tugas->judul_tugas}}</td>
-            <td>{{$item->siswa->nama}}</td>
+            <td>{{$item->nama}}</td>
             <td> <a href="{{asset('storage/'.$item->file)}}">File Tugas</a></td>
             <td>{{$item->nilai}}</td>
             <td>{{$item->diupload_pada}}</td>

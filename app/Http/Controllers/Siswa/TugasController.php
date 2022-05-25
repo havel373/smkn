@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Siswa;
 use App\Http\Controllers\Controller;
 use App\Models\Pengumpulan;
 use App\Models\Tugas;
+use App\Models\Pengguna;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -20,8 +21,12 @@ class TugasController extends Controller
     {
         if ($request->ajax()) {
             $keywords = $request->keywords;
-            $collection = Tugas::
-            where('judul_tugas','like','%'.$keywords.'%')
+            $kelas_id = Pengguna::join('siswa','pengguna.nisn','=','siswa.nisn')->select('siswa.kelas_id')->where('pengguna.nisn',Auth::user()->nisn)->first();
+            $collection = Tugas::join('mata_pelajaran','matpel_id','=','mata_pelajaran.id')
+            ->join('siswa','mata_pelajaran.kelas_id','=','siswa.kelas_id')
+            ->join('pengguna','siswa.nisn','=','pengguna.nisn')
+            ->where('mata_pelajaran.nama_mapel','like','%'.$keywords.'%')
+            ->where('mata_pelajaran.kelas_id',$kelas_id->kelas_id)
             ->paginate(10);
             return view('pages.siswa.tugas.list', compact('collection'));
         }

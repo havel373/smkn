@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Guru;
 
 use App\Http\Controllers\Controller;
 use App\Models\Pengumpulan;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -18,8 +19,12 @@ class NilaiController extends Controller
     {
         if ($request->ajax()) {
             $keywords = $request->keywords;
-            $collection = Pengumpulan::
-            where('nisn','like','%'.$keywords.'%')
+            $collection = Pengumpulan::join('tugas','tugas_id','=','tugas.id')
+            ->join('mata_pelajaran','matpel_id','=','mata_pelajaran.id')
+            ->join('pengguna','mata_pelajaran.guru_id','=','pengguna.nip')
+            ->join('siswa','pengumpulan_tugas.nisn','=','siswa.nisn')
+            ->where('mata_pelajaran.nama_mapel','like','%'.$keywords.'%')
+            ->where('mata_pelajaran.guru_id',Auth::user()->nip)
             ->paginate(10);
             return view('pages.guru.nilai.list', compact('collection'));
         }

@@ -22,8 +22,10 @@ class MateriController extends Controller
     {
         if ($request->ajax()) {
             $keywords = $request->keywords;
-            $collection = Materi::
-            where('judul','like','%'.$keywords.'%')
+            $collection = Materi::join('mata_pelajaran','matpel_id','=','mata_pelajaran.id')
+            ->join('pengguna','mata_pelajaran.guru_id','=','pengguna.nip')
+            ->where('mata_pelajaran.nama_mapel','like','%'.$keywords.'%')
+            ->where('mata_pelajaran.guru_id',Auth::user()->nip)
             // ->where('guru_id',Auth::user()->guru->nip)
             ->paginate(10);
             return view('pages.guru.materi.list', compact('collection'));

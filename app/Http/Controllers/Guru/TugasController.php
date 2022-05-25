@@ -21,8 +21,10 @@ class TugasController extends Controller
     {
         if ($request->ajax()) {
             $keywords = $request->keywords;
-            $collection = Tugas::
-            where('judul_tugas','like','%'.$keywords.'%')
+            $collection = Tugas::join('mata_pelajaran','matpel_id','=','mata_pelajaran.id')
+            ->join('pengguna','mata_pelajaran.guru_id','=','pengguna.nip')
+            ->where('mata_pelajaran.nama_mapel','like','%'.$keywords.'%')
+            ->where('mata_pelajaran.guru_id',Auth::user()->nip)
             ->paginate(10);
             return view('pages.guru.tugas.list', compact('collection'));
         }

@@ -4,7 +4,7 @@
 	@include('themes.auth.head')
 	<!--end::Head-->
 	<!--begin::Body-->
-	<body id="kt_body" class="bg-body" style="background-image: url({{asset('images/bg.jpeg')}}); background-repeat:no-repeat;">
+	<body id="kt_body" class="bg-body" style="background-image: url({{asset('images/bg.jpeg')}}); background-repeat:no-repeat;background-size:cover;background-repeat:no-repeat;width:100%;">
 		<!--begin::Main-->
 		<div class="d-flex flex-column flex-root">
 			<!--begin::Authentication - Sign-in -->
