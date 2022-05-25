@@ -72,11 +72,11 @@
                                     </div> 
                                     <div class="col-md-2">
                                         @if(Auth::user()->role=='o')
-                                            <img src="{{asset('img/avatars/user.png')}}" alt="image" />
+                                            <img src="{{asset('img/avatars/user.png')}}" alt="image" style="width: 60%;"/>
                                         @elseif(Auth::user()->role=='g')
-                                            <img src="{{asset('img/avatars/teacher.png')}}" alt="image"/>
+                                            <img src="{{asset('img/avatars/teacher.png')}}" alt="image" style="width: 60%;"/>
                                         @else
-                                            <img src="{{asset('img/avatars/students.png')}}" alt="image"/>
+                                            <img src="{{asset('img/avatars/students.png')}}" alt="image" style="width: 60%;"/>
                                         @endif
                                     </div>
                                 </div>
