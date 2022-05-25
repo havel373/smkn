@@ -76,7 +76,7 @@
                                 </svg>
                             </span>
                         </span>
-                        <span class="menu-title">Data Users</span>
+                        <span class="menu-title">Registrasi</span>
                         <span class="menu-arrow"></span>
                     </span>
                     <div class="menu-sub menu-sub-accordion" kt-hidden-height="117">

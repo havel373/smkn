@@ -10,7 +10,7 @@
         @php
             $kelas_id = \App\Models\Pengguna::join('siswa','pengguna.nisn','=','siswa.nisn')->select('siswa.kelas_id')->where('pengguna.nisn',Auth::user()->nisn)->first();
             $mapel = \App\Models\MataPelajaran::join('siswa','mata_pelajaran.kelas_id','=','siswa.kelas_id')
-                    ->join('pengguna','siswa.nisn','=','pengguna.nisn')->where('mata_pelajaran.kelas_id',$kelas_id->kelas_id)->get();
+                    ->join('pengguna','siswa.nisn','=','pengguna.nisn')->where('siswa.nisn',Auth::user()->nisn)->get();
         @endphp
         <section class="section dashboard">
           <div class="row">
