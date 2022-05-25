@@ -11,7 +11,7 @@
  Target Server Version : 50733
  File Encoding         : 65001
 
- Date: 22/05/2022 20:55:07
+ Date: 25/05/2022 14:00:34
 */
 
 SET NAMES utf8mb4;
@@ -32,21 +32,13 @@ CREATE TABLE `guru`  (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`nip`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 913911 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 98765435 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of guru
 -- ----------------------------
-INSERT INTO `guru` VALUES (18998, 'Percival Leannon', '4490 Hamill Freeway Apt. 043\nAllanton, MO 16947-1107', 'l', 'mbednar@example.org', 'KRISTEN', '1966-01-28', '2022-05-22 08:17:58', '2022-05-22 08:17:58');
-INSERT INTO `guru` VALUES (125282, 'Laron Larson', '510 Collier Port Suite 993\nGerholdburgh, AK 10126', 'l', 'tbarton@example.net', 'ISLAM', '1961-10-06', '2022-05-22 08:17:58', '2022-05-22 08:17:58');
-INSERT INTO `guru` VALUES (240073, 'Mrs. Macy Green V', '73647 Lubowitz Highway\nMosciskichester, VA 08222-5070', 'l', 'amely42@example.net', 'KRISTEN', '1976-07-18', '2022-05-22 08:17:58', '2022-05-22 08:17:58');
-INSERT INTO `guru` VALUES (284053, 'Grayson Smith', '2821 Raven Common Apt. 724\nNorth Harmonyshire, NY 12226', 'l', 'dallas.herman@example.org', 'KRISTEN', '1967-04-08', '2022-05-22 08:17:58', '2022-05-22 08:17:58');
-INSERT INTO `guru` VALUES (379387, 'Mr. Edgardo Schulist', '831 Brakus Mountains Apt. 319\nPort Eldon, TN 12054-0599', 'l', 'rollin.howell@example.org', 'KONGHUCU', '1960-11-02', '2022-05-22 08:17:58', '2022-05-22 08:17:58');
-INSERT INTO `guru` VALUES (425925, 'Aletha Hegmann I', '69168 Mercedes Crossroad Suite 227\nNorth Shannyview, IA 89739', 'l', 'pgreenholt@example.net', 'BUDDHA', '1989-12-16', '2022-05-22 08:17:58', '2022-05-22 08:17:58');
-INSERT INTO `guru` VALUES (440103, 'Kenny Bailey', '3016 Gleichner Fort Suite 792\nMelbatown, MI 03522-5360', 'p', 'larson.alvera@example.com', 'BUDDHA', '1963-05-23', '2022-05-22 08:17:58', '2022-05-22 08:17:58');
-INSERT INTO `guru` VALUES (549903, 'Prof. Maximus Schowalter', '6135 Hickle Well Apt. 638\nBuckridgeside, WI 46381-3453', 'l', 'darrin09@example.net', 'KATOLIK', '1975-04-13', '2022-05-22 08:17:58', '2022-05-22 08:17:58');
-INSERT INTO `guru` VALUES (704422, 'Mr. Clifton Leannon', '45699 Burdette Well Suite 587\nGulgowskistad, RI 70863', 'p', 'jerad.ohara@example.org', 'HINDU', '1981-09-07', '2022-05-22 08:17:58', '2022-05-22 08:17:58');
-INSERT INTO `guru` VALUES (913910, 'Lauren Collier Sr.', '4783 Hauck Greens\nChrishaven, FL 49672', 'l', 'jenkins.jaden@example.com', 'KRISTEN', '1972-08-20', '2022-05-22 08:17:58', '2022-05-22 08:17:58');
+INSERT INTO `guru` VALUES (98765433, 'Deden Siagian', 'Jalan serta Yesus', 'l', 'Deden@example.co.id', 'HINDU', '1989-12-31', '2022-05-24 16:18:15', '2022-05-24 16:18:15');
+INSERT INTO `guru` VALUES (98765434, 'Yuli Chan', 'Jalan setapak', 'p', 'Yuli@example.co.id', 'ISLAM', '1990-12-31', '2022-05-24 16:18:15', '2022-05-24 16:18:15');
 
 -- ----------------------------
 -- Table structure for kelas
@@ -59,12 +51,13 @@ CREATE TABLE `kelas`  (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of kelas
 -- ----------------------------
-INSERT INTO `kelas` VALUES (1, 'XII Rpl', '2021/2022', NULL, NULL);
+INSERT INTO `kelas` VALUES (1, 'XII RPL', '2021/2022', NULL, NULL);
+INSERT INTO `kelas` VALUES (2, 'XII Perhotelan', '2021/2022', NULL, NULL);
 
 -- ----------------------------
 -- Table structure for mata_pelajaran
@@ -74,15 +67,22 @@ CREATE TABLE `mata_pelajaran`  (
   `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `nama_mapel` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `deskripsi` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `guru_id` int(11) NOT NULL,
+  `guru_id` int(10) UNSIGNED NOT NULL,
+  `kelas_id` bigint(20) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `mata_pelajaran_guru_id_foreign`(`guru_id`) USING BTREE,
+  INDEX `mata_pelajaran_kelas_id_foreign`(`kelas_id`) USING BTREE,
+  CONSTRAINT `mata_pelajaran_guru_id_foreign` FOREIGN KEY (`guru_id`) REFERENCES `guru` (`nip`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `mata_pelajaran_kelas_id_foreign` FOREIGN KEY (`kelas_id`) REFERENCES `kelas` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of mata_pelajaran
 -- ----------------------------
+INSERT INTO `mata_pelajaran` VALUES (1, 'Memasak', 'Masak Masak Asik', 98765433, 2, NULL, NULL);
+INSERT INTO `mata_pelajaran` VALUES (2, 'Mulmed', 'Multimedia', 98765434, 1, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for materi_pembelajaran
@@ -95,19 +95,19 @@ CREATE TABLE `materi_pembelajaran`  (
   `judul` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `deskripsi` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `berkas_materi` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `start_at` timestamp NOT NULL,
-  `end_at` timestamp NOT NULL,
-  `batas_submitan` timestamp NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `materi_pembelajaran_matpel_id_foreign`(`matpel_id`) USING BTREE,
   CONSTRAINT `materi_pembelajaran_matpel_id_foreign` FOREIGN KEY (`matpel_id`) REFERENCES `mata_pelajaran` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of materi_pembelajaran
 -- ----------------------------
+INSERT INTO `materi_pembelajaran` VALUES (2, 2, 1, 'belajar html css', 'asiks', 'materi/Zdp7CUy1mEfo7ndTZlM3BNFQcaqQnp629l6WEWhY.docx', '2022-05-24 17:00:12', '2022-05-24 17:00:12');
+INSERT INTO `materi_pembelajaran` VALUES (3, 1, 2, 'mengmasak enaks', 'enakss', 'materi/V5b3k7P0DaQO0Vuqgfi32TEMfjlYV6y7hqyHDnUS.pdf', '2022-05-25 01:46:35', '2022-05-25 01:46:35');
+INSERT INTO `materi_pembelajaran` VALUES (4, 2, 1, 'belajar make cmd', 'belajar ajah', 'materi/FQZ6viyEXWLfSXnAz7pGVDaI4VzlEDCuuGPRoNxi.pdf', '2022-05-25 03:18:40', '2022-05-25 03:18:40');
 
 -- ----------------------------
 -- Table structure for migrations
@@ -118,20 +118,21 @@ CREATE TABLE `migrations`  (
   `migration` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of migrations
 -- ----------------------------
 INSERT INTO `migrations` VALUES (1, '2019_12_14_000001_create_personal_access_tokens_table', 1);
 INSERT INTO `migrations` VALUES (2, '2022_05_16_124824_create_kelas_table', 1);
-INSERT INTO `migrations` VALUES (3, '2022_05_16_134840_create_mata_pelajaran_table', 1);
-INSERT INTO `migrations` VALUES (4, '2022_05_17_081806_create_materi_pembelajaran_table', 1);
-INSERT INTO `migrations` VALUES (5, '2022_05_17_120059_create_siswa_table', 1);
-INSERT INTO `migrations` VALUES (6, '2022_05_17_150631_create_guru_table', 1);
-INSERT INTO `migrations` VALUES (7, '2022_05_17_151050_craete_operator_sekolah_table', 1);
-INSERT INTO `migrations` VALUES (8, '2022_05_18_115718_create_pengguna_table', 1);
-INSERT INTO `migrations` VALUES (9, '2022_05_18_155412_create_tugas_table', 1);
+INSERT INTO `migrations` VALUES (3, '2022_05_17_120059_create_siswa_table', 1);
+INSERT INTO `migrations` VALUES (4, '2022_05_17_150631_create_guru_table', 1);
+INSERT INTO `migrations` VALUES (5, '2022_05_17_151050_craete_operator_sekolah_table', 1);
+INSERT INTO `migrations` VALUES (6, '2022_05_18_115718_create_pengguna_table', 1);
+INSERT INTO `migrations` VALUES (7, '2022_05_18_134840_create_mata_pelajaran_table', 1);
+INSERT INTO `migrations` VALUES (8, '2022_05_18_155412_create_tugas_table', 1);
+INSERT INTO `migrations` VALUES (9, '2022_05_19_081806_create_materi_pembelajaran_table', 1);
+INSERT INTO `migrations` VALUES (10, '2022_05_24_161615_create_pengumpulan_tugas_table', 1);
 
 -- ----------------------------
 -- Table structure for operator_sekolah
@@ -145,21 +146,13 @@ CREATE TABLE `operator_sekolah`  (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id_operator`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 957092 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 8765435 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of operator_sekolah
 -- ----------------------------
-INSERT INTO `operator_sekolah` VALUES (65020, 'Dr. Hobart Romaguera', 'nestor90@example.com', 'p', '2022-05-22 08:17:59', '2022-05-22 08:17:59');
-INSERT INTO `operator_sekolah` VALUES (154934, 'Prof. Bennett Langosh', 'francesco.lemke@example.net', 'l', '2022-05-22 08:17:59', '2022-05-22 08:17:59');
-INSERT INTO `operator_sekolah` VALUES (162875, 'Mr. Hardy Kuphal DVM', 'weissnat.harmon@example.com', 'l', '2022-05-22 08:17:59', '2022-05-22 08:17:59');
-INSERT INTO `operator_sekolah` VALUES (421334, 'Miss Ashly Boehm', 'forrest26@example.net', 'p', '2022-05-22 08:17:59', '2022-05-22 08:17:59');
-INSERT INTO `operator_sekolah` VALUES (558219, 'Clementina Brekke DVM', 'gracie.herzog@example.org', 'l', '2022-05-22 08:17:59', '2022-05-22 08:17:59');
-INSERT INTO `operator_sekolah` VALUES (621359, 'Oscar Maggio', 'bkuhn@example.com', 'p', '2022-05-22 08:17:59', '2022-05-22 08:17:59');
-INSERT INTO `operator_sekolah` VALUES (710957, 'Sim Bechtelar', 'keshawn05@example.org', 'l', '2022-05-22 08:17:59', '2022-05-22 08:17:59');
-INSERT INTO `operator_sekolah` VALUES (750274, 'Eldridge Borer', 'lonie16@example.org', 'l', '2022-05-22 08:17:59', '2022-05-22 08:17:59');
-INSERT INTO `operator_sekolah` VALUES (955890, 'Korbin Marvin I', 'karen34@example.org', 'l', '2022-05-22 08:17:59', '2022-05-22 08:17:59');
-INSERT INTO `operator_sekolah` VALUES (957091, 'Berta Baumbach', 'jamal.jakubowski@example.com', 'p', '2022-05-22 08:17:59', '2022-05-22 08:17:59');
+INSERT INTO `operator_sekolah` VALUES (8765433, 'Operator manurung', 'operatorm@example.co.id', 'l', '2022-05-24 16:18:15', '2022-05-24 16:18:15');
+INSERT INTO `operator_sekolah` VALUES (8765434, 'Operator sitinjak', 'operators@example.co.id', 'p', '2022-05-24 16:18:15', '2022-05-24 16:18:15');
 
 -- ----------------------------
 -- Table structure for pengguna
@@ -183,14 +176,40 @@ CREATE TABLE `pengguna`  (
   CONSTRAINT `pengguna_id_operator_foreign` FOREIGN KEY (`id_operator`) REFERENCES `operator_sekolah` (`id_operator`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `pengguna_nip_foreign` FOREIGN KEY (`nip`) REFERENCES `guru` (`nip`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `pengguna_nisn_foreign` FOREIGN KEY (`nisn`) REFERENCES `siswa` (`nisn`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of pengguna
 -- ----------------------------
-INSERT INTO `pengguna` VALUES (1, 'g', 'guru123', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', '2022-05-22 15:18:22', '2022-05-22 15:18:24', 379387, NULL, NULL);
-INSERT INTO `pengguna` VALUES (2, 's', 'siswa123', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', '2022-05-22 15:18:41', '2022-05-22 15:18:44', NULL, 232532, NULL);
-INSERT INTO `pengguna` VALUES (3, 'o', 'operator123', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', '2022-05-22 15:19:01', '2022-05-22 15:19:03', NULL, NULL, 558219);
+INSERT INTO `pengguna` VALUES (1, 'o', 'operator123', '$2y$10$ltOeaCdNqcARvn..1104pecCZmmyvrGkwjYU6lSLGeV8ruGkCpBry', '2022-05-24 16:18:15', '2022-05-24 16:18:15', NULL, NULL, 8765433);
+INSERT INTO `pengguna` VALUES (2, 'o', 'operator12345', '$2y$10$fkmgtRVgrQTUkARw.BO/8.coFk20V2nH8Htb5/aVRhJTQci9z4jri', '2022-05-24 16:18:15', '2022-05-24 16:18:15', NULL, NULL, 8765434);
+INSERT INTO `pengguna` VALUES (3, 'g', 'guru123', '$2y$10$AFZ7JDLac.F6uLMaMSSTH.UzYazLJNVRMxJ2FGYYUhGVfdXWiq.1i', '2022-05-24 16:18:15', '2022-05-24 16:18:15', 98765433, NULL, NULL);
+INSERT INTO `pengguna` VALUES (4, 'g', 'guru12356', '$2y$10$hALVHpVnYD2Nz4kG0Vw02.sLbJUeQJKWy7PrIMVNdXMmCq2yDRMcy', '2022-05-24 16:18:15', '2022-05-24 16:18:15', 98765434, NULL, NULL);
+INSERT INTO `pengguna` VALUES (5, 's', 'siswa123', '$2y$10$m2DtTWdWazQ9503aa.f7Qu7f9CWSkTUCsVYRTssv66F3VVyQqkCKu', '2022-05-24 16:18:15', '2022-05-24 17:34:48', NULL, 1234565, NULL);
+INSERT INTO `pengguna` VALUES (6, 's', 'siswa12345', '$2y$10$Nj8FwG99YHejq5v4vpmoJ.w8yot2w295t/pE5sPQ3qmrDei.j2tu.', '2022-05-24 16:18:15', '2022-05-24 17:34:53', NULL, 1234566, NULL);
+
+-- ----------------------------
+-- Table structure for pengumpulan_tugas
+-- ----------------------------
+DROP TABLE IF EXISTS `pengumpulan_tugas`;
+CREATE TABLE `pengumpulan_tugas`  (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `tugas_id` bigint(20) UNSIGNED NOT NULL,
+  `nisn` int(10) UNSIGNED NOT NULL,
+  `file` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `diupload_pada` datetime NOT NULL,
+  `nilai` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `pengumpulan_tugas_tugas_id_foreign`(`tugas_id`) USING BTREE,
+  INDEX `pengumpulan_tugas_nisn_foreign`(`nisn`) USING BTREE,
+  CONSTRAINT `pengumpulan_tugas_nisn_foreign` FOREIGN KEY (`nisn`) REFERENCES `siswa` (`nisn`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `pengumpulan_tugas_tugas_id_foreign` FOREIGN KEY (`tugas_id`) REFERENCES `tugas` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of pengumpulan_tugas
+-- ----------------------------
+INSERT INTO `pengumpulan_tugas` VALUES (1, 3, 1234565, 'pengumpulan_tugas/E2LUBxZbaloDf93bp6WWIjirwYyA0DnYfEw1v7Uk.zip', '2022-05-25 02:34:25', '85');
 
 -- ----------------------------
 -- Table structure for personal_access_tokens
@@ -233,21 +252,13 @@ CREATE TABLE `siswa`  (
   PRIMARY KEY (`nisn`) USING BTREE,
   INDEX `siswa_kelas_id_foreign`(`kelas_id`) USING BTREE,
   CONSTRAINT `siswa_kelas_id_foreign` FOREIGN KEY (`kelas_id`) REFERENCES `kelas` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 994380 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1234567 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of siswa
 -- ----------------------------
-INSERT INTO `siswa` VALUES (105494, 'Teresa Emard', NULL, 'l', '730 Bayer Ports Apt. 968\nPaucekville, NY 51500-6537', 'zwolf@example.org', 'BUDDHA', '2001-06-30', '2022-05-22 08:17:59', '2022-05-22 08:17:59');
-INSERT INTO `siswa` VALUES (135901, 'Albertha Daugherty DDS', NULL, 'p', '298 Virgil Terrace\nPort Vellaborough, RI 78212', 'chris52@example.org', 'KRISTEN', '1998-07-30', '2022-05-22 08:17:59', '2022-05-22 08:17:59');
-INSERT INTO `siswa` VALUES (152408, 'Winston Kunze DDS', NULL, 'l', '701 Casey Trafficway\nCarmelton, RI 02697', 'tressie93@example.com', 'KRISTEN', '2004-09-08', '2022-05-22 08:17:59', '2022-05-22 08:17:59');
-INSERT INTO `siswa` VALUES (226606, 'Dr. Darron Rolfson', NULL, 'p', '89416 Guiseppe Mills\nSouth Friedrichport, AZ 37968', 'katheryn.ratke@example.org', 'KONGHUCU', '2001-10-20', '2022-05-22 08:17:59', '2022-05-22 08:17:59');
-INSERT INTO `siswa` VALUES (232532, 'Mrs. Melba Koch', NULL, 'l', '1565 Eichmann Ways\nNorth Keeley, NV 73604', 'damon.okeefe@example.org', 'KONGHUCU', '2002-12-15', '2022-05-22 08:17:59', '2022-05-22 08:17:59');
-INSERT INTO `siswa` VALUES (393237, 'Meda Gerhold', NULL, 'p', '38647 Eichmann Circle\nEmeraldhaven, MT 78446', 'gupton@example.org', 'KRISTEN', '2002-09-04', '2022-05-22 08:17:59', '2022-05-22 08:17:59');
-INSERT INTO `siswa` VALUES (543638, 'Martine Harris', NULL, 'l', '9072 Yessenia Skyway\nLake Napoleonview, WI 34455', 'vandervort.cathryn@example.com', 'ISLAM', '2001-11-05', '2022-05-22 08:17:59', '2022-05-22 08:17:59');
-INSERT INTO `siswa` VALUES (703261, 'Howard Abernathy I', NULL, 'p', '42518 Vito Square Suite 210\nEast Brainshire, PA 72909', 'eernser@example.net', 'KRISTEN', '2000-02-20', '2022-05-22 08:17:59', '2022-05-22 08:17:59');
-INSERT INTO `siswa` VALUES (912131, 'Felicita Connelly', NULL, 'l', '917 Schinner Trafficway\nLakinmouth, OK 45324', 'sasha.champlin@example.net', 'KATOLIK', '2003-11-04', '2022-05-22 08:17:59', '2022-05-22 08:17:59');
-INSERT INTO `siswa` VALUES (994379, 'Alena Hayes', NULL, 'p', '85994 Cecil Canyon\nOwenton, NY 63567-0965', 'audrey.nitzsche@example.net', 'KATOLIK', '1998-11-24', '2022-05-22 08:17:59', '2022-05-22 08:17:59');
+INSERT INTO `siswa` VALUES (1234565, 'Donny Silaen', 1, 'l', 'Jalan jalan', 'Donny@example.co.id', 'KONGHUCU', '2004-12-31', '2022-05-24 16:18:15', '2022-05-24 17:34:48');
+INSERT INTO `siswa` VALUES (1234566, 'Ongki Sijabat', 2, 'p', 'Jalanan', 'ongki@example.co.id', 'HINDU', '2002-12-31', '2022-05-24 16:18:15', '2022-05-24 17:34:53');
 
 -- ----------------------------
 -- Table structure for tugas
@@ -258,15 +269,17 @@ CREATE TABLE `tugas`  (
   `matpel_id` bigint(20) UNSIGNED NOT NULL,
   `berkas_tugas` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `judul_tugas` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `nilai` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `tanggal_pengumpulan` datetime NOT NULL,
+  `start_at` timestamp NOT NULL,
+  `end_at` timestamp NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `tugas_matpel_id_foreign`(`matpel_id`) USING BTREE,
   CONSTRAINT `tugas_matpel_id_foreign` FOREIGN KEY (`matpel_id`) REFERENCES `mata_pelajaran` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of tugas
 -- ----------------------------
+INSERT INTO `tugas` VALUES (2, 1, 'tugas/xEx2qEosHaYucjStWzZmQIGdkt0fWSE9fxow4cDH.doc', 'mengmasak', '2022-05-25 12:00:00', '2022-05-26 15:00:00');
+INSERT INTO `tugas` VALUES (3, 2, 'tugas/hSIvYH1r30DdQsqaClMiWtXJiekdojY1N3KcP9Zs.doc', 'mengowdink', '2022-05-25 18:00:00', '2022-05-26 12:00:00');
 
 SET FOREIGN_KEY_CHECKS = 1;
