@@ -17,9 +17,15 @@
             <td><a href="{{$item->file}}" target="_blank">Tugas</a></td>
             <td>{{$item->start_at}}</td>
             <td>{{$item->end_at}}</td>
+            @if((date('Y-m-d H:i:s')) >= $item->end_at)
+            <td>
+                <p>Anda tidak bisa submit tugas lagi</p>
+            </td>
+            @else
             <td>
                 <a href="javascript:;" onclick="load_input('{{route('siswa.tugas.show',$item->id)}}');" class="btn btn-icon btn-warning"><i class="las la-eye fs-2"></i></a>
             </td>
+            @endif
         </tr>
         @endforeach
     </tbody>

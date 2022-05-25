@@ -43,7 +43,7 @@ class SiswaController extends Controller
             'username' => 'required|unique:pengguna,username',
             'password' => 'required|min:8',
         ]);
-
+        
         if ($validator->fails()) {
             $errors = $validator->errors();
             if ($errors->has('nisn')) {
@@ -101,10 +101,13 @@ class SiswaController extends Controller
         $user->agama = Str::upper($request->agama);
         $user->alamat = $request->alamat;
         $user->jenis_kelamin = $request->jenis_kelamin;
+        if($request->kelas){
+            $user->kelas_id= $request->kelas;
+        }
         $user->created_at = now();
         $user->updated_at = now();
         $user->save();
-
+        
         $account = new Pengguna;
         $account->role = 's';
         $account->nisn = $user->nisn;
