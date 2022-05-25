@@ -9,7 +9,7 @@
     <meta property="og:url" content="https://kbl.dev" />
     <meta property="og:site_name" content="{{config('app.name')}}" />
     <link rel="canonical" href="https://kbl.dev" />
-    <link rel="shortcut icon" href="{{asset('img/favicon.png')}}" />
+    <link rel="shortcut icon" href="{{asset('images/logo.png')}}" />
     <!--begin::Fonts-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
     <!--end::Fonts-->

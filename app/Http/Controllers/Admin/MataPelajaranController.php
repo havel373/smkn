@@ -25,8 +25,9 @@ class MataPelajaranController extends Controller
     }
     public function create()
     {
-        $guru = Pengguna::where('role','g')->get();
-        return view('pages.admin.pelajaran.input', ['pelajaran' => new MataPelajaran, 'guru' => $guru]);
+        $guru = Guru::get();
+        $kelas = Room::get();
+        return view('pages.admin.pelajaran.input', ['pelajaran' => new MataPelajaran, 'guru' => $guru, 'kelas' => $kelas]);
     }
     public function store(Request $request)
     {
@@ -34,6 +35,7 @@ class MataPelajaranController extends Controller
             'nama_mapel' => 'required',
             'deskripsi' => 'required',
             'guru' => 'required',
+            'kelas' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -53,12 +55,18 @@ class MataPelajaranController extends Controller
                     'alert' => 'error',
                     'message' => $errors->first('guru'),
                 ]);
+            }elseif ($errors->has('kelas')) {
+                return response()->json([
+                    'alert' => 'error',
+                    'message' => $errors->first('kelas'),
+                ]);
             }
         }
         $mataPelajaran = new MataPelajaran;
-        $mataPelajaran->nama_mapel = Str::title($request->nama_mapel);
+        $mataPelajaran->nama_mapel = $request->nama_mapel;
         $mataPelajaran->deskripsi = Str::title($request->deskripsi);
         $mataPelajaran->guru_id = $request->guru;
+        $mataPelajaran->kelas_id = $request->kelas;
         $mataPelajaran->save();
         return response()->json([
             'alert' => 'success',
@@ -71,8 +79,8 @@ class MataPelajaranController extends Controller
     }
     public function edit(MataPelajaran $pelajaran)
     {
-        $guru =  Pengguna::where('role','g')->get();
-        return view('pages.admin.pelajaran.input', compact('guru','pelajaran'));
+        $guru =  Guru::get();
+        return view('pages.admin.pelajaran.input', compact('guru','pelajaran','kelas'));
     }
     public function update(Request $request, MataPelajaran $pelajaran)
     {
@@ -80,6 +88,7 @@ class MataPelajaranController extends Controller
             'nama_mapel' => 'required',
             'deskripsi' => 'required',
             'guru' => 'required',
+            'kelas' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -99,10 +108,16 @@ class MataPelajaranController extends Controller
                     'alert' => 'error',
                     'message' => $errors->first('guru'),
                 ]);
+            }elseif ($errors->has('kelas')) {
+                return response()->json([
+                    'alert' => 'error',
+                    'message' => $errors->first('kelas'),
+                ]);
             }
         }
         $pelajaran->nama_mapel = Str::title($request->nama_mapel);
         $pelajaran->deskripsi = Str::title($request->deskripsi);
+        $pelajaran->kelas_id = $request->kelas;
         $pelajaran->guru_id = $request->guru;
         $pelajaran->update();
         return response()->json([

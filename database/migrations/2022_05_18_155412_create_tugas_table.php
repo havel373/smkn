@@ -18,8 +18,8 @@ class CreateTugasTable extends Migration
             $table->BigInteger('matpel_id')->unsigned();
             $table->string('berkas_tugas');
             $table->string('judul_tugas');
-            $table->string('nilai');
-            $table->dateTime('tanggal_pengumpulan');
+            $table->timestamp('start_at');
+            $table->timestamp('end_at');
             $table->foreign('matpel_id')->references('id')->on('mata_pelajaran');
         });
     }

@@ -14,4 +14,8 @@ class Operator extends Model
     public function pengguna(){
         return $this->belongsTo(Pengguna::class, 'id_operator', 'id_operator');
     }
+
+    public function getFileAttribute(){
+        return asset('storage/'. $this->berkas_tugas);
+    }
 }

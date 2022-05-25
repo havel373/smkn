@@ -22,13 +22,22 @@
                                         <div class="mb-10 fv-row">
                                             <label class="required form-label">Deskripsi Singkat</label>
                                             <textarea class="form-control form-control-solid" name="deskripsi">{{$pelajaran->deskripsi}}</textarea>
+                                        </div> 
+                                        <div class="mb-10 fv-row">
+                                            <label class="required form-label">Pilih Kelas</label>
+                                            <select data-control="select2" data-placeholder="Pilih Kelas" name="kelas" class="form-select form-select-solid">
+                                                <option SELECTED DISABLED>Pilih Kelas</option>
+                                                @foreach ($kelas as $item)
+                                                    <option value="{{$item->id}}" {{$pelajaran->kelas_id == $item->id ? 'selected' : ''}}>{{$item->kode_kelas}}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                         <div class="mb-10 fv-row">
-                                            <label class="required form-label">Nama Mata Pelajaran</label>
+                                            <label class="required form-label">Pilih Guru</label>
                                             <select data-control="select2" data-placeholder="Pilih Guru" name="guru" class="form-select form-select-solid">
                                                 <option SELECTED DISABLED>Pilih Guru</option>
                                                 @foreach ($guru as $item)
-                                                    <option value="{{$item->id}}" {{$pelajaran->guru_id == $item->id ? 'selected' : ''}}>{{$item->nama}}</option>
+                                                    <option value="{{$item->nip}}" {{$pelajaran->guru_id == $item->nip ? 'selected' : ''}}>{{$item->nama}}</option>
                                                 @endforeach
                                             </select>
                                         </div>

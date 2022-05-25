@@ -70,7 +70,8 @@ function obj_datepicker(obj) {
 }
 function obj_mindatetimepicker(obj) {
 	$(obj).flatpickr({
-        minDate:new Date().fp_incr(1),
+        minDate: "today",
+        // minDate:new Date().fp_incr(1),
         enableTime: true,
         time_24hr: true
     });
