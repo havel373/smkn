@@ -40,7 +40,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::prefix('profile')->name('profile.')->group(function(){
             Route::get('', [ProfileController::class, 'index'])->name('index');
             Route::get('edit', [ProfileController::class, 'edit'])->name('edit');
-            Route::post('cpassword', [ProfileController::class, 'cpassword'])->name('cpassword');
+            Route::patch('cprofile', [ProfileController::class, 'cprofile'])->name('cprofile');
             Route::post('save', [ProfileController::class, 'save'])->name('save');
         });
     });
@@ -57,7 +57,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::prefix('profile')->name('profile.')->group(function(){
             Route::get('', [GuruProfileController::class, 'index'])->name('index');
             Route::get('edit', [GuruProfileController::class, 'edit'])->name('edit');
-            Route::post('cpassword', [GuruProfileController::class, 'cpassword'])->name('cpassword');
+            Route::patch('cprofile', [GuruProfileController::class, 'cprofile'])->name('cprofile');
             Route::post('save', [GuruProfileController::class, 'save'])->name('save');
         });
     });
@@ -74,7 +74,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::prefix('profile')->name('profile.')->group(function(){
             Route::get('', [SiswaProfileController::class, 'index'])->name('index');
             Route::get('edit', [SiswaProfileController::class, 'edit'])->name('edit');
-            Route::post('cpassword', [SiswaProfileController::class, 'cpassword'])->name('cpassword');
+            Route::patch('cprofile', [SiswaProfileController::class, 'cprofile'])->name('cprofile');
             Route::post('save', [SiswaProfileController::class, 'save'])->name('save');
         });
     });

@@ -121,7 +121,7 @@
                             }
                         @endphp
                         <div class="menu-item px-5">
-                            <a href="{{$profile}}" class="menu-link px-5">My Profile</a>
+                            <a href="{{$profile}}" class="menu-link px-5 {{request()->is('admin/profile') || request()->is('guru/profile') || request()->is('siswa/profile') ? 'active' : ''}}" href="{{ route('admin.pelajaran.index') }}">My Profile</a>
                         </div>
                         <!--end::Menu item-->
                         <!--begin::Menu item-->

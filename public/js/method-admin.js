@@ -120,8 +120,13 @@ function handle_save_password(tombol, form, url, method){
                 $(form)[0].reset();
                 setTimeout(function () {
                     $(tombol).prop("disabled", false);
-                        main_content('content_list');
-                        load_list(1);
+                    if(response.reload){
+                        location.reload();
+                    }else if(response.route){
+                        location.href = response.route;
+                    }else{
+                        location.reload();
+                    }
                 }, 2000);
             } else {
                 Swal.fire({ text: response.message, icon: "error", buttonsStyling: !1, confirmButtonText: "Ok, Mengerti!", customClass: { confirmButton: "btn btn-primary" } });
