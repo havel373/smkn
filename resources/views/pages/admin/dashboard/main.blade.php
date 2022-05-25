@@ -8,7 +8,7 @@
     @elseif(Auth::user()->role == 's')
     <main id="main" class="main">
         @php
-            $kelas_id = \App\Models\Pengguna::join('siswa','pengguna.nisn','=','siswa.nisn')->select('siswa.kelas_id')->where('pengguna.nisn',Auth::user()->nisn)->first();
+            $kelas_id = \App\Models\Pengguna::join('siswa','pengguna.nisn','=','siswa.nisn')->join('kelas','siswa.kelas_id','=','kelas.id')->select('kelas.kode_kelas')->where('pengguna.nisn',Auth::user()->nisn)->first();
             $mapel = \App\Models\MataPelajaran::join('siswa','mata_pelajaran.kelas_id','=','siswa.kelas_id')
                     ->join('pengguna','siswa.nisn','=','pengguna.nisn')->where('siswa.nisn',Auth::user()->nisn)->get();
         @endphp
@@ -20,7 +20,7 @@
     
                   <div class="card info-card customers-card " >
                     <div class="card-body">
-                      <h5 class="card-title">X Tataboga 1</h5>
+                      <h5 class="card-title">{{$kelas_id->kode_kelas}}</h5>
                       <div class="list-group ">
                         @foreach($mapel as $item)
                             <a href="#" class="list-group-item list-group-item-action list-group-item-dark">{{$item->nama_mapel}}</a>
