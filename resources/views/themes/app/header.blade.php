@@ -62,11 +62,11 @@
                         data-kt-menu-trigger="click" data-kt-menu-attach="parent"
                         data-kt-menu-placement="bottom-end">
                         @if(Auth::user()->role=='o')
-                            <img src="{{asset('img/avatars/admin.png')}}" alt="user" style="background-color: black;" />
+                            <img src="{{asset('img/avatars/user.png')}}" alt="user"/>
                         @elseif(Auth::user()->role=='g')
-                            <img src="{{asset('img/avatars/admin.png')}}" alt="user" style="background-color: rgb(97, 97, 186);" />
+                            <img src="{{asset('img/avatars/teacher.png')}}" alt="user"/>
                         @else
-                            <img src="{{asset('img/avatars/admin.png')}}" alt="user" style="background-color: red;" />
+                            <img src="{{asset('img/avatars/students.png')}}" alt="user"/>
                         @endif
                     </div>
                     <!--begin::User account menu-->
@@ -77,16 +77,16 @@
                             <div class="menu-content d-flex align-items-center px-3">
                                 <!--begin::Avatar-->
                                 @if(Auth::user()->role=='o')
-                                    <div class="symbol symbol-50px me-5" style="background-color: black;">
-                                        <img alt="Logo" src="{{asset('img/avatars/admin.png')}}" />
+                                    <div class="symbol symbol-50px me-5">
+                                        <img alt="Logo" src="{{asset('img/avatars/user.png')}}" />
                                     </div>
                                 @elseif(Auth::user()->role=='g')
-                                    <div class="symbol symbol-50px me-5" style="background-color: rgb(97, 97, 186);">
-                                        <img alt="Logo" src="{{asset('img/avatars/admin.png')}}" />
+                                    <div class="symbol symbol-50px me-5">
+                                        <img alt="Logo" src="{{asset('img/avatars/teacher.png')}}" />
                                     </div>
                                 @else
-                                    <div class="symbol symbol-50px me-5" style="background-color: red;">
-                                        <img alt="Logo" src="{{asset('img/avatars/admin.png')}}" />
+                                    <div class="symbol symbol-50px me-5">
+                                        <img alt="Logo" src="{{asset('img/avatars/students.png')}}" />
                                     </div>
                                 @endif
                                 <!--end::Avatar-->
