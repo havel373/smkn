@@ -47,7 +47,7 @@
             <!--begin::Page title-->
             <div class="page-title d-flex flex-column me-5">
                 <!--begin::Title-->
-                <h1 class="d-flex flex-column text-dark fw-bolder fs-3 mb-0"><img src="{{asset('images/logo.png')}}" class="d-flex float-right" alt="logo" style="max-width:50px;max-height:50px;"> SMK Negeri 3 Balige</h1>
+                <h1 class="d-flex flex-column text-dark fw-bolder fs-3 mb-0"><img src="{{asset('images/logo.png')}}" class="d-flex float-right" alt="logo" style="max-width:50px;max-height:50px;">E-Learning SMK Negeri 3 Balige</h1>
                 <!--end::Title-->
                 <!--begin::Breadcrumb-->
                 <!--end::Breadcrumb-->
