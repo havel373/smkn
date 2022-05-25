@@ -25,6 +25,7 @@ class TugasController extends Controller
             $collection = Tugas::join('mata_pelajaran','matpel_id','=','mata_pelajaran.id')
             ->join('siswa','mata_pelajaran.kelas_id','=','siswa.kelas_id')
             ->join('pengguna','siswa.nisn','=','pengguna.nisn')
+            ->select('tugas.id','mata_pelajaran.nama_mapel','tugas.end_at','tugas.judul_tugas','tugas.start_at','tugas.berkas_tugas')
             ->where('mata_pelajaran.nama_mapel','like','%'.$keywords.'%')
             ->where('mata_pelajaran.kelas_id',$kelas_id->kelas_id)
             ->paginate(10);

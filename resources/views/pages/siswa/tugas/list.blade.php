@@ -12,7 +12,7 @@
     <tbody>
         @foreach ($collection as $item)
         <tr>
-            <td>{{$item->matpel->nama_mapel}}</td>
+            <td>{{$item->nama_mapel}}</td>
             <td>{{$item->judul_tugas}}</td>
             <td><a href="{{$item->file}}" target="_blank">Tugas</a></td>
             <td>{{$item->start_at}}</td>
