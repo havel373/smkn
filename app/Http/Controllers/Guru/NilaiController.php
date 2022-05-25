@@ -23,6 +23,7 @@ class NilaiController extends Controller
             ->join('mata_pelajaran','matpel_id','=','mata_pelajaran.id')
             ->join('pengguna','mata_pelajaran.guru_id','=','pengguna.nip')
             ->join('siswa','pengumpulan_tugas.nisn','=','siswa.nisn')
+            ->select('pengumpulan_tugas.id','tugas.judul_tugas','siswa.nama','pengumpulan_tugas.file','pengumpulan_tugas.nilai','pengumpulan_tugas.diupload_pada')
             ->where('mata_pelajaran.nama_mapel','like','%'.$keywords.'%')
             ->where('mata_pelajaran.guru_id',Auth::user()->nip)
             ->paginate(10);

@@ -12,8 +12,8 @@
     <tbody>
         @foreach ($collection as $item)
         <tr>
-            <td>{{$item->matpel->nama_mapel}}</td>
-            <td>{{$item->kelas->kode_kelas}}</td>
+            <td>{{$item->nama_mapel}}</td>
+            <td>{{$item->kode_kelas}}</td>
             <td>{{$item->judul}}</td>
             <td>{{$item->deskripsi}}</td>
             <td><a target="_blank"href="{{$item->file}}">Materi</a></td>
